@@ -1,0 +1,9 @@
+{
+  "devToolsPort": 19002,
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 500,
+  "expoServerNgrokUrl": "https://42-ng5.anonymous.udacicards.exp.direct",
+  "packagerNgrokUrl": "https://packager.42-ng5.anonymous.udacicards.exp.direct",
+  "ngrokPid": 522
+}
