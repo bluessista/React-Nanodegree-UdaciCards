@@ -13,7 +13,7 @@ class DeckList extends Component {
                     const { title, questions } = decks[key];
                     return (
                         <View key={key} style={styles.row}>
-                            <Text>{title}</Text>
+                            <Text style={styles.cardTitle}>{title}</Text>
                             <Text>{questions.length <= 1 ? questions.length + ' card' : questions.length + ' cards'}</Text>
                         </View>
                     )
@@ -35,10 +35,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 10,
         borderColor: 'green',
-        borderWidth: 1,
+        borderWidth: 2,
         borderStyle: 'solid',
         borderRadius: 10,
-        width: 100
+        width: 300,
+        height: 100,
+        marginBottom: 10
+    },
+    cardTitle: {
+        fontSize: 24
     }
 })
 
