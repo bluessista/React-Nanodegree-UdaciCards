@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { KeyboardAvoidingView, StyleSheet, View, Text, TouchableOpacity, TextInput } from 'react-native';
+import { green } from '../utils/colors';
 
 class AddNewDeck extends Component {
     render(){
@@ -23,6 +24,24 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: 10
+    },
+    deckTitle: {
+        fontSize: 38,
+        marginBottom: 10,
+        textAlign: 'center',
+        padding: 10 
+    },
+    button: {
+        marginBottom: 30,
+        width: 260,
+        alignItems: 'center',
+        backgroundColor: green,
+        borderRadius: 4
+    },
+    buttonText: {
+        padding: 15,
+        color: 'white',
+        fontSize: 20
     }
 })
 
