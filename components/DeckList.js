@@ -1,13 +1,24 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
-import { green, white } from '../utils/colors';
-import { getDummyData } from '../utils/api';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { green } from '../utils/colors';
+import { getDecks } from '../utils/api';
+
+// Redux
+import { connect } from 'react-redux';
+import { receiveDecks } from '../actions';
+
 
 class DeckList extends Component {
-    render(){
-        const decks = getDummyData()
 
-        return (
+    componentDidMount(){
+        getDecks()
+            .then(decks => this.props.getAllDecks(decks));
+    }
+
+    render(){
+        const { decks } = this.props;
+
+        return(
             <View style={styles.container}>
                 {Object.keys(decks).map((key) => {
                     const { title, questions } = decks[key];
@@ -18,10 +29,10 @@ class DeckList extends Component {
                                 <Text>{questions.length <= 1 ? questions.length + ' card' : questions.length + ' cards'}</Text>
                             </View>
                         </TouchableOpacity>
-                    )
+                    );
                 })}
             </View>
-        )
+        );
     }
 }
 
@@ -47,6 +58,16 @@ const styles = StyleSheet.create({
     cardTitle: {
         fontSize: 24
     }
-})
+});
 
-export default DeckList
+function mapDispatchToProps( dispatch ) {
+    return {
+        getAllDecks: (decks) => dispatch(receiveDecks(decks))
+    };
+}
+
+function mapStateToProps(decks){
+    return decks;
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DeckList);
