@@ -1,23 +1,19 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
+import { View } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator, createStackNavigator, createAppContainer } from 'react-navigation';
-import {orange, white, gray } from './utils/colors';
+import {orange, white } from './utils/colors';
 
+// Components
 import DeckList from './components/DeckList';
 import AddNewDeck from './components/AddNewDeck';
 import DeckView from './components/DeckView';
 
-class App extends Component {
-    render() {
-      return (
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <DeckList />
-          <RootStack />
-        </View>
-      );
-    }
-  }
+// Redux
+import { Provider } from 'react-redux';
+import reducer from './reducers';
+import { createStore } from 'redux';
+
 
 // implement Tab Navigation
 const NavigatorTabs = createBottomTabNavigator({
@@ -32,7 +28,7 @@ const NavigatorTabs = createBottomTabNavigator({
         screen: AddNewDeck,
         navigationOptions: {
             tabBarLabel: 'Add new Deck',
-            tabBarIcon: ({ tintColor }) => <MaterialCommunityIcons name='library-plus' size={25} color={tintColor} />
+            tabBarIcon: ({ tintColor }) => <MaterialCommunityIcons name='playlist-plus' size={25} color={tintColor} />
         }
     }
 }, {
@@ -42,7 +38,7 @@ const NavigatorTabs = createBottomTabNavigator({
             backgroundColor: white
         }
     }
-})
+});
 
 const RootStack = createStackNavigator(
     {
@@ -66,6 +62,19 @@ const RootStack = createStackNavigator(
     {
         initialRouteName: 'Home'
     }
-)
+);
 
-export default createAppContainer(RootStack);
+const Navigation = createAppContainer(RootStack);
+
+export default class App extends Component {
+    render() {
+        return (
+            <Provider store={createStore(reducer)}>
+                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <DeckList />
+                    <Navigation />
+                </View>
+            </Provider>
+        );
+    }
+}
